@@ -15,5 +15,5 @@ const source = fromPromise(
     .then(res => res.json())
 );
 
-source(0, observe(user => console.log(user.name))); // Leanne Graham
+observe(user => console.log(user.name))(source); // Leanne Graham
 ```
