@@ -4,6 +4,7 @@ const fromPromise = promise => (start, sink) => {
   const onfulfilled = val => {
     if (ended) return;
     sink(1, val);
+    if (ended) return;
     sink(2);
   };
   const onrejected = err => {
