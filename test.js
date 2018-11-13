@@ -122,3 +122,36 @@ test('it converts a rejected promise and observes it', t => {
     t.end();
   }, 400);
 });
+
+test('it doesn\'t emit completion after being unsubscribed in response to resolved value', t => {
+  t.plan(5);
+  const source = fromPromise(Promise.resolve(42));
+
+  const downwardsExpectedTypes = [
+    [0, 'function'],
+    [1, 'number'],
+  ];
+
+  let talkback;
+  source(0, function observe(type, data) {
+    const et = downwardsExpectedTypes.shift();
+    if (!et) {
+      t.fail('should not get anything after sink unsubscribes');
+    }
+    t.equals(type, et[0], 'downwards type is expected: ' + et[0]);
+    t.equals(typeof data, et[1], 'downwards data type is expected: ' + et[1]);
+
+    if (type === 0) {
+      talkback = data;
+      return;
+    }
+    if (type === 1) {
+      talkback(2);
+    }
+  });
+
+  setTimeout(() => {
+    t.pass('nothing else happens');
+    t.end();
+  }, 400);
+});
