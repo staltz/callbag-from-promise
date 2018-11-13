@@ -2,18 +2,25 @@
   "name": "callbag-from-promise",
   "version": "1.0.0",
   "description": "Convert a Promise to a callbag listenable source",
-  "main": "index.js",
+  "main": "index.cjs.js",
+  "module": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/staltz/callbag-from-promise.git"
   },
   "scripts": {
-    "test": "tape test.js"
+    "build": "rollup $npm_package_module -o $npm_package_main --f cjs",
+    "pretest": "npm run build",
+    "test": "tape test.js",
+    "prepare": "npm test"
   },
   "author": "staltz.com",
   "license": "MIT",
-  "keywords": ["callbag"],
+  "keywords": [
+    "callbag"
+  ],
   "devDependencies": {
+    "rollup": "^0.67.1",
     "tape": "^4.8.0"
   }
 }

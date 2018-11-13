@@ -1,5 +1,5 @@
 const test = require('tape');
-const fromPromise = require('./index');
+const fromPromise = require('.');
 
 test('it converts a resolved promise and observes it', t => {
   t.plan(8);
