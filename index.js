@@ -16,4 +16,4 @@ const fromPromise = promise => (start, sink) => {
   });
 };
 
-module.exports = fromPromise;
+export default fromPromise;
