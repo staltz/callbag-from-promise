@@ -4,6 +4,7 @@
   "description": "Convert a Promise to a callbag listenable source",
   "main": "index.cjs.js",
   "module": "index.js",
+  "types": "types.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/staltz/callbag-from-promise.git"
@@ -22,5 +23,8 @@
   "devDependencies": {
     "rollup": "^0.67.1",
     "tape": "^4.8.0"
+  },
+  "dependencies": {
+    "callbag": "^1.1.0"
   }
 }
