@@ -7,7 +7,7 @@ const fromPromise = promise => (start, sink) => {
     if (ended) return;
     sink(2);
   };
-  const onrejected = err => {
+  const onrejected = (err = new Error()) => {
     if (ended) return;
     sink(2, err);
   };
