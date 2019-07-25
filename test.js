@@ -123,6 +123,33 @@ test('it converts a rejected promise and observes it', t => {
   }, 400);
 });
 
+test('it converts a rejected promise with no data and observes it', t => {
+  t.plan(6);
+  const source = fromPromise(Promise.reject());
+
+  const downwardsExpectedTypes = [[0, 'function'], [2, 'object']];
+
+  let talkback;
+  source(0, function observe(type, data) {
+    const et = downwardsExpectedTypes.shift();
+    t.equals(type, et[0], 'downwards type is expected: ' + et[0]);
+    t.equals(typeof data, et[1], 'downwards data type is expected: ' + et[1]);
+
+    if (type === 0) {
+      talkback = data;
+      return;
+    }
+    if (type === 2) {
+      t.equals(data.message, '', 'downwards data is expected: empty error');
+    }
+  });
+
+  setTimeout(() => {
+    t.pass('nothing else happens');
+    t.end();
+  }, 400);
+});
+
 test('it doesn\'t emit completion after being unsubscribed in response to resolved value', t => {
   t.plan(5);
   const source = fromPromise(Promise.resolve(42));
